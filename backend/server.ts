@@ -1,5 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express';
-import { getAllStories } from './handleMongo'
+import { getCollection } from './handleMongo'
 const app = express()
 const PORT = 8000
 
@@ -10,7 +10,7 @@ app.use((req:Request, res:Response, next:NextFunction) => {
 })
 
 app.get('/', async (req:Request, res:Response) => {
-    const stories = await getAllStories()
+    const stories = await getCollection('Stories')
     res.send(stories).status(200)
 })
 

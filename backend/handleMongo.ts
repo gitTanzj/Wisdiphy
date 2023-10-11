@@ -4,10 +4,10 @@ import { DB_CONNECTION } from './config'
 
 const client = new MongoClient( DB_CONNECTION! )
 
-export const getAllStories = async (name: string) => {
+export const getCollection = async (name: string) => {
     const database = client.db('Wisdiphy')
-    const StoriesCollection = database.collection(name)
-    const stories = await StoriesCollection.find().toArray()
-    return stories
+    const collection = database.collection(name)
+    const collectionFetched = await collection.find().toArray()
+    return collectionFetched
 }
 
