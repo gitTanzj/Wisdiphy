@@ -1,22 +1,27 @@
-import { StyleSheet, Text, Image, SafeAreaView } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+//screens
+import TitleScreen from './navigation/screens/TitleScreen';
+import MainContainer from './navigation/MainContainer';
+
+const Stack = createStackNavigator();
 
 export default function App() {
 
-  const handlePress = () => {
-    console.log('clicked')
-  }
   return (
-    <SafeAreaView style={styles.container}>
-      <Text onPress={handlePress}>I am creating a React Native app!</Text>
-    </SafeAreaView>
+    <NavigationContainer independent={true}>
+      <Stack.Navigator initialRouteName="TitleScreen">
+        <Stack.Screen
+          name="TitleScreen"
+          component={TitleScreen}
+        />
+        <Stack.Screen
+          name="MainContainer"
+          component={MainContainer}
+          options={{ headerShown: false }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'grey',
-    justifyContent: 'center',
-    alignItems: 'center'
-  }
-});
