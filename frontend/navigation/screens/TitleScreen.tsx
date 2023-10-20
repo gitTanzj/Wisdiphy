@@ -32,8 +32,8 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        borderWidth: 2,
-        borderColor:'red'
+        // borderWidth: 2,
+        // borderColor:'red'
     },
     button:{
         alignItems: 'center',

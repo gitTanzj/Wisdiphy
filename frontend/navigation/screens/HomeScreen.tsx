@@ -1,17 +1,17 @@
-import { StyleSheet, SafeAreaView, Platform, StatusBar, Text, Button, View } from 'react-native'
-import React from 'react'
+import { StyleSheet, View } from 'react-native'
+import React, { useEffect } from 'react'
 
 export default function HomeScreen() {
+
   return (
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
         
-      </SafeAreaView>
+      </View>
   )
 }
 
 const styles = StyleSheet.create({
     container: {
-        // paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
         backgroundColor: 'grey'
     }
 })

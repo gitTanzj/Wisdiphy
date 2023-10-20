@@ -11,7 +11,10 @@ export default function App() {
 
   return (
     <NavigationContainer independent={true}>
-      <Stack.Navigator initialRouteName="TitleScreen">
+      <Stack.Navigator
+      initialRouteName="TitleScreen"
+      screenOptions={{ headerTitleAlign:'center' }}
+      >
         <Stack.Screen
           name="TitleScreen"
           component={TitleScreen}

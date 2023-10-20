@@ -18,13 +18,13 @@ const Tab = createBottomTabNavigator()
 
 const MainContainer: React.FC = () => {
   return (
-    <NavigationContainer independent={true}>
+    <NavigationContainer independent={true} >
         <Tab.Navigator
             initialRouteName={homeName}
-            screenOptions={({route}) => ({
+            screenOptions={(route) => ({
                 tabBarIcon: ({focused, color, size}) => {
                     let iconName;
-                    let rn = route.name
+                    let rn = route.route.name
 
                     if (rn === homeName) {
                         iconName = focused ? 'home' : 'home-outline'
@@ -35,10 +35,11 @@ const MainContainer: React.FC = () => {
                     else if (rn === settingsName) {
                         iconName = focused ? 'settings' : 'settings-outline'
                     }
-
+                    
                     return <Ionicons name={iconName!} size={size} color={color}/>
                 },
                 tabBarActiveTintColor: 'tomato',
+                headerTitleAlign: 'center',
                 tabBarLabelStyle: {
                     paddingBottom: 10,
                     fontSize: 10
@@ -53,7 +54,7 @@ const MainContainer: React.FC = () => {
             >
             
             <Tab.Screen name={homeName} component={HomeScreen}/>
-            <Tab.Screen name={storiesName} component={StoriesScreen}/>
+            <Tab.Screen name={storiesName} component={StoriesScreen} options={{ headerShown: false }}/>
             <Tab.Screen name={settingsName} component={SettingsScreen}/>
 
         </Tab.Navigator>
