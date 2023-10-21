@@ -1,20 +1,20 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import React from 'react'
 import { RouteProp } from '@react-navigation/native';
 import { useRoute } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+
 
 type StoryScreenRouteParams = {
-  story: {
-    title: string;
-    body: string;
-  };
+  title: string;
+  storyBody: string;
 };
 
 const StoryScreen:React.FC = () => {
 
   const route = useRoute()
   const params = route?.params as StoryScreenRouteParams
-
+  
   if (!params) {
     return (
       <View style={styles.container}>
@@ -23,12 +23,14 @@ const StoryScreen:React.FC = () => {
     );
   }
 
-  const { title, body } = params.story;
+  const { title, storyBody } = params;
 
   return (
     <View style={styles.container}>
-      <Text>Title: {title}</Text>
-      <Text>Body: {body}</Text>
+      <ScrollView style={styles.scrollView}>
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.text}>{storyBody}</Text>
+      </ScrollView>
     </View>
   );
 }
@@ -36,6 +38,20 @@ const StoryScreen:React.FC = () => {
 const styles = StyleSheet.create({
   container:{
     flex:1
+  },
+  scrollView: {
+    marginHorizontal: 20
+  },
+  title:{
+    fontSize: 42,
+    fontWeight: 'bold',
+    marginHorizontal: 10,
+    textAlign: 'center',
+    paddingBottom: 30
+  },
+  text:{
+    fontSize: 24,
+    rowGap: 12
   }
 })
 
