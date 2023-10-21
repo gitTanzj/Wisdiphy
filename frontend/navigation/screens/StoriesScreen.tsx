@@ -4,6 +4,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import axios from 'axios'
 import { useNavigation } from '@react-navigation/native'
 import { RootStackParams } from '../../App';
+import { IP_ADDRESS } from '../../config'
 
 interface StoriesElement {
   _id: any
@@ -18,7 +19,7 @@ const StoriesScreen:React.FC = () => {
 
   useEffect(() => {
     const FetchData = async () => {
-        axios.get('http://192.168.8.102:8000/')
+        axios.get(`https://${IP_ADDRESS}:8000/`)
         .then(res => {
           setStories(res.data)
         })
