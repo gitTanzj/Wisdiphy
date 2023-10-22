@@ -4,7 +4,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import axios from 'axios'
 import { useNavigation } from '@react-navigation/native'
 import { RootStackParams } from '../../App';
-import { IP_ADDRESS } from '../../config'
+import { LOCAL_IP } from '@env'
 
 interface StoriesElement {
   _id: any
@@ -16,28 +16,38 @@ const StoriesScreen:React.FC = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParams, 'Stories'>>()
 
   const [stories, setStories] = useState<StoriesElement[]>([])
+  const [loading, setLoading] = useState<boolean>(true)
+
 
   useEffect(() => {
-    const FetchData = async () => {
-        axios.get(`https://${IP_ADDRESS}:8000/`)
+    console.log(LOCAL_IP)
+    const fetchData = () => {
+      setLoading(true)
+      axios.get(`http://${LOCAL_IP}:8000`)
         .then(res => {
           setStories(res.data)
         })
-        .catch(err => console.error(err))
+        .catch(err => {
+          console.error(err)
+        })
+        .finally(() => {
+          setLoading(false)
+        })
     }
-    FetchData()
+    fetchData()
   }, [])
 
   return (
     <View style={styles.stories}>
-        <FlatList
+      {loading ? <Text style={styles.loading}>Loading...</Text> : 
+        (<FlatList
           data={stories}
           renderItem={({item}) => <Pressable onPress={() => navigation.navigate('StoryScreen', {title: item.title, storyBody: item.storyBody})}>
               <Text style={styles.storyTitle}>{item.title}</Text>
           </Pressable>}
           keyExtractor={item => item._id}
           numColumns={2}
-        />
+        />)}
     </View>
   )
 }
@@ -45,6 +55,17 @@ const StoriesScreen:React.FC = () => {
 export default StoriesScreen
 
 const styles = StyleSheet.create({
+    loading: {
+      fontSize: 24,
+      fontWeight: 'bold',
+      textAlign: 'center',
+      margin: 10,
+      padding: 10,
+      borderWidth: 2,
+      borderRadius: 5,
+      width: 160,
+      height: 'auto'
+    },
     stories: {
       flexDirection: 'column',
       flex:2,
