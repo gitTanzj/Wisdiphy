@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Pressable, FlatList } from 'react-native'
+import { StyleSheet, Text, View, Pressable, FlatList, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { StackNavigationProp } from '@react-navigation/stack';
 import axios from 'axios'
@@ -20,7 +20,6 @@ const StoriesScreen:React.FC = () => {
 
 
   useEffect(() => {
-    console.log(LOCAL_IP)
     const fetchData = () => {
       setLoading(true)
       axios.get(`http://${LOCAL_IP}:8000`)
@@ -42,9 +41,9 @@ const StoriesScreen:React.FC = () => {
       {loading ? <Text style={styles.loading}>Loading...</Text> : 
         (<FlatList
           data={stories}
-          renderItem={({item}) => <Pressable onPress={() => navigation.navigate('StoryScreen', {title: item.title, storyBody: item.storyBody})}>
+          renderItem={({item}) => <TouchableOpacity onPress={() => navigation.navigate('StoryScreen', {title: item.title, storyBody: item.storyBody})}>
               <Text style={styles.storyTitle}>{item.title}</Text>
-          </Pressable>}
+          </TouchableOpacity>}
           keyExtractor={item => item._id}
           numColumns={2}
         />)}

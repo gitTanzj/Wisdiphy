@@ -40,6 +40,7 @@ export default function App() {
         <Stack.Screen
         name="StoryScreen"
         component={StoryScreen}
+        options={{headerTitle:''}}
         />
       </Stack.Navigator>
     </NavigationContainer>
