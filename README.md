@@ -23,7 +23,7 @@ Wisdiphy is developing an app that presents interactive and inspiring tales from
   ```sh
   npm install npm@latest -g
   ```
-### Installation
+### Setup:
 
 1. Clone the repo
    ```sh
@@ -36,5 +36,9 @@ Wisdiphy is developing an app that presents interactive and inspiring tales from
 3. Create .env file in /backend and enter your MongoDB connection
    ```js
    MONGO_CONNECTION = "YOUR KEY HERE"
+   ```
+4. Create .env file in /frontend and enter your Local IPv4 address
+   ```js
+   LOCAL_IP="YOUR IPv4 HERE"
    ```
 
