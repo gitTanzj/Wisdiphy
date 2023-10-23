@@ -43,7 +43,6 @@ const StoryScreen:React.FC = () => {
       <ScrollView style={styles.scrollView}
       onScroll={({nativeEvent}) => {
         if (isCloseToBottom(nativeEvent)) {
-          console.log('close to bottom')
           setBottom(true)
         }
       }}
