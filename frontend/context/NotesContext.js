@@ -9,6 +9,15 @@ export const notesReducer = (state, action) => {
                 notes: action.payload
             }
         case 'CREATE_NOTE':
+            if (action.payload.associatedStory in state.notes){
+                return {
+                    notes : state.notes.filter((note) => {
+                        if (note.associatedStory === action.payload.associatedStory){
+                            note.noteBody = action.payload.noteBody
+                        }
+                    })
+                }
+            }
             return {
                 notes: [action.payload, ...state.notes]
             }

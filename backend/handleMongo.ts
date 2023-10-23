@@ -14,7 +14,13 @@ export const getCollection = async (name: string) => {
 export const addEntry = async (name:string, entry: {noteBody: string, associatedStory: string}) => {
     const database = client.db('Wisdiphy')
     const notesCollection = database.collection(name);
-    await notesCollection.insertOne(entry)
+    const existingEntry = await notesCollection.findOne({associatedStory: entry.associatedStory})
+    if (existingEntry) {
+        await notesCollection.updateOne({associatedStory: entry.associatedStory}, {$set: {noteBody: entry.noteBody}})
+    } else {
+        await notesCollection.insertOne(entry)
+    }
+    
 }
 
 export const deleteEntry = async (name:string, id:string) => {
