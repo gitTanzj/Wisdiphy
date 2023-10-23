@@ -11,8 +11,6 @@ type StoryScreenRouteParams = {
   storyBody: string;
 };
 
-
-
 const StoryScreen:React.FC = () => {
 
   // checks if the user has scrolled to the bottom of the screen
@@ -53,7 +51,7 @@ const StoryScreen:React.FC = () => {
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.text}>{storyBody}</Text>
       </ScrollView>
-      {bottom && <StoryBottomText/>}
+      {bottom && <StoryBottomText associatedStory={title}/>}
     </View>
   );
 }
