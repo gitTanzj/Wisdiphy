@@ -32,7 +32,6 @@ app.get('/notes', async (req:Request, res:Response) => {
 
 // POST REQUEST FOR THE NOTES
 app.post('/notes', async (req:Request, res:Response) => {
-    console.log(req.body)
     if (!req.body.noteBody || !req.body.associatedStory) {
         res.status(400).json({ error: 'noteBody and associatedStory is required.' });
         return;
@@ -40,12 +39,6 @@ app.post('/notes', async (req:Request, res:Response) => {
 
     const entry = {noteBody: req.body.noteBody, associatedStory: req.body.associatedStory}
     addEntry('Notes', entry)
-})
-
-// DELETE REQUEST FOR THE NOTES
-app.delete('/api/delete_data', (req, res) => {
-    console.log(`DELETE REQUEST SENT FOR ${req.body.id}!`)
-    deleteEntry('Notes', req.body.id)
 })
 
 app.listen(PORT, () => {
