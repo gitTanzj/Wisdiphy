@@ -1,4 +1,4 @@
-import { StyleSheet, TextInput, View } from 'react-native'
+import { StyleSheet, TextInput, View, Text } from 'react-native'
 import React, { useState } from 'react'
 import { NativeSyntheticEvent } from 'react-native';
 import { TextInputChangeEventData } from 'react-native';
@@ -38,16 +38,19 @@ const StoryBottomText:React.FC<StoryBottomTextProps> = (props) => {
   }
 
   return (
-    <View style={styles.textarea}>
-      <TextInput
-      editable
-      numberOfLines={4}
-      value={value}
-      onChange={(e:NativeSyntheticEvent<TextInputChangeEventData>) => {
-        onChangeText(e.nativeEvent.text)
-    }}
-      onSubmitEditing={() => {handleTextSubmit()}}
-      />
+    <View style={styles.notes}>
+      <Text style={styles.title}>How did you feel about this story?</Text>
+      <View style={styles.textarea}>
+        <TextInput
+        editable
+        numberOfLines={4}
+        value={value}
+        onChange={(e:NativeSyntheticEvent<TextInputChangeEventData>) => {
+          onChangeText(e.nativeEvent.text)
+      }}
+        onSubmitEditing={() => {handleTextSubmit()}}
+        />
+      </View>
     </View>
   )
 }
@@ -56,9 +59,19 @@ export default StoryBottomText
 
 const styles = StyleSheet.create({
     textarea: {
-        height: 80,
-        borderWidth: 3,
-        borderColor: 'grey',
-        padding: 10,
+      height: 60,
+      borderWidth: 3,
+      borderRadius: 5,
+      borderColor: 'grey',
+      padding: 10,
+    },
+    title: {
+      fontWeight: 'bold',
+      fontSize: 16,
+      margin: 5
+    },
+    notes: {
+      marginTop: 40,
+      marginBottom: 20
     }
 })

@@ -23,33 +23,31 @@ const SettingsStack = createStackNavigator();
 export default function SettingsScreen() {
 
   return (
-    <NavigationContainer independent={true}>
-      <SettingsStack.Navigator
-      initialRouteName="SettingsList"
-      >
-        <SettingsStack.Screen
-          name="SettingsList"
-          component={SettingsList}
-          options={{headerShown: false}}
-        />
-        <SettingsStack.Screen
-          name="Account"
-          component={Account}
-        />
-        <SettingsStack.Screen
-          name="Privacy"
-          component={Privacy}
-        />
-        <SettingsStack.Screen
-          name="Notifications"
-          component={Notifications}
-        />
-        <SettingsStack.Screen
-          name="About"
-          component={About}
-        />
-      </SettingsStack.Navigator>
-    </NavigationContainer>
+    <SettingsStack.Navigator
+    initialRouteName="SettingsList"
+    >
+      <SettingsStack.Screen
+        name="SettingsList"
+        component={SettingsList}
+        options={{headerShown: false}}
+      />
+      <SettingsStack.Screen
+        name="Account"
+        component={Account}
+      />
+      <SettingsStack.Screen
+        name="Privacy"
+        component={Privacy}
+      />
+      <SettingsStack.Screen
+        name="Notifications"
+        component={Notifications}
+      />
+      <SettingsStack.Screen
+        name="About"
+        component={About}
+      />
+    </SettingsStack.Navigator>
   )
 }
 

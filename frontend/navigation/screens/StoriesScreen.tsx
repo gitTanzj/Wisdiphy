@@ -39,6 +39,7 @@ const StoriesScreen:React.FC = () => {
           setStories(res.data)
         })
         .catch(err => {
+          console.log(LOCAL_IP)
           console.error(err)
         })
     }
@@ -52,6 +53,7 @@ const StoriesScreen:React.FC = () => {
           dispatch({type: 'SET_NOTES', payload: res.data})
         })
         .catch(err => {
+          console.log(LOCAL_IP)
           console.error(err)
         })
         .finally(() => {

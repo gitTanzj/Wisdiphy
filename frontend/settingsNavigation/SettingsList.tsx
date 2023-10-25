@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 5,
         margin: 10,
-        marginBottom: 5
+        marginBottom: 0,
       },
       settingsText: {
         fontWeight: 'bold',

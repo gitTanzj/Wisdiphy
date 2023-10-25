@@ -13,7 +13,7 @@ const StoryScreen:React.FC = () => {
 
   // checks if the user has scrolled to the bottom of the screen
   const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }:any) => {
-    const paddingToBottom = 5;
+    const paddingToBottom = 40;
     return layoutMeasurement.height + contentOffset.y >=
       contentSize.height - paddingToBottom;
   };
@@ -47,8 +47,8 @@ const StoryScreen:React.FC = () => {
       >
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.text}>{storyBody}</Text>
+        {bottom && <StoryBottomText associatedStory={title}/>}
       </ScrollView>
-      {bottom && <StoryBottomText associatedStory={title}/>}
     </View>
   );
 }
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginHorizontal: 10,
     textAlign: 'center',
-    paddingBottom: 30
+    paddingBottom: 30,
   },
   text:{
     fontSize: 24,
