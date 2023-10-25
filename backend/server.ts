@@ -1,5 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express';
-import { getCollection, addEntry, deleteEntry } from './handleMongo'
+import { getCollection, addEntry } from './handleMongo'
 const app = express()
 const PORT = 8000
 

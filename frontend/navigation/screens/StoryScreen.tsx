@@ -1,8 +1,6 @@
-import { StyleSheet, Text, View, ScrollView, ScrollResponderEvent } from 'react-native'
+import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import React, { useState } from 'react'
-import { RouteProp } from '@react-navigation/native';
 import { useRoute } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import StoryBottomText from '../../components/StoryBottomText';
 
 
@@ -14,8 +12,8 @@ type StoryScreenRouteParams = {
 const StoryScreen:React.FC = () => {
 
   // checks if the user has scrolled to the bottom of the screen
-  const isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}:any) => {
-    const paddingToBottom = 20;
+  const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }:any) => {
+    const paddingToBottom = 5;
     return layoutMeasurement.height + contentOffset.y >=
       contentSize.height - paddingToBottom;
   };
