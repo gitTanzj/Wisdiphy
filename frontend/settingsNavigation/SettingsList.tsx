@@ -1,5 +1,8 @@
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native'
 import React from 'react'
+import { useNavigation } from '@react-navigation/native'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { SettingsStackParams } from '../navigation/screens/SettingsScreen'
 
 interface SettingsOption {
   id: string
@@ -11,35 +14,42 @@ const settingsOptions = [
     {
       id: 's1',
       name: 'Account',
-      onPress: () => {}
     },
     {
       id: 's2',
       name: 'Privacy',
-      onPress: () => {}
     },
     {
       id: 's3',
       name: 'Notifications',
-      onPress: () => {}
     },
     {
       id: 's4',
       name: 'About',
-      onPress: () => {}
     },
     {
       id: 's5',
       name: 'Logout',
-      onPress: () => {}
     }
   ]
 
 const SettingsList: React.FC = () => {
+
+  const navigation = useNavigation<StackNavigationProp<SettingsStackParams, 'SettingsList'>>()
+
   return (
     <ScrollView style={styles.settingsList}>
-        {settingsOptions.map(({name, onPress, id}) => (
-          <TouchableOpacity onPress={onPress} key={id}>
+        {settingsOptions.map(({name, id}) => (
+          <TouchableOpacity onPress={
+            () => {
+              if (name === 'Logout') {
+                console.log('logout')
+              } else{
+                navigation.navigate(name as keyof SettingsStackParams)
+              }
+            }
+            
+            } key={id}>
             <View style={styles.settingsElement}>
               <Text style={styles.settingsText}>{name}</Text>
             </View>
@@ -57,9 +67,12 @@ const styles = StyleSheet.create({
         flexDirection: 'column'
       },
       settingsElement: {
-        width: '100%',
+        flex: 1,
         padding: 30,
-        borderBottomWidth: 2,
+        borderWidth: 2,
+        borderRadius: 5,
+        margin: 10,
+        marginBottom: 5
       },
       settingsText: {
         fontWeight: 'bold',
