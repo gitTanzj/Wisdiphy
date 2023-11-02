@@ -9,6 +9,7 @@ import Account from '../../settingsNavigation/settings-screens/Account';
 import Privacy from '../../settingsNavigation/settings-screens/Privacy';
 import Notifications from '../../settingsNavigation/settings-screens/Notifications';
 import About from '../../settingsNavigation/settings-screens/About';
+import EaseOfAccess from '../../settingsNavigation/settings-screens/EaseOfAccess';
 
 export type SettingsStackParams = {
   SettingsList: undefined
@@ -16,6 +17,7 @@ export type SettingsStackParams = {
   Privacy: undefined
   Notifications: undefined
   About: undefined
+  EaseOfAcess: undefined
 }
 
 const SettingsStack = createStackNavigator();
@@ -25,6 +27,7 @@ export default function SettingsScreen() {
   return (
     <SettingsStack.Navigator
     initialRouteName="SettingsList"
+    screenOptions={{headerTitle:''}}
     >
       <SettingsStack.Screen
         name="SettingsList"
@@ -46,6 +49,10 @@ export default function SettingsScreen() {
       <SettingsStack.Screen
         name="About"
         component={About}
+      />
+      <SettingsStack.Screen
+        name="EaseOfAccess"
+        component={EaseOfAccess}
       />
     </SettingsStack.Navigator>
   )

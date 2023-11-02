@@ -4,32 +4,37 @@ import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { SettingsStackParams } from '../navigation/screens/SettingsScreen'
 
-interface SettingsOption {
-  id: string
-  name: string
-  onPress: () => void
-}
 
 const settingsOptions = [
     {
       id: 's1',
       name: 'Account',
+      title: 'Account'
     },
     {
       id: 's2',
       name: 'Privacy',
+      title: 'Privacy'
     },
     {
       id: 's3',
       name: 'Notifications',
+      title: 'Notifications'
     },
     {
       id: 's4',
       name: 'About',
+      title: 'About'
     },
     {
       id: 's5',
+      name: 'EaseOfAccess',
+      title: 'Ease of Access'
+    },
+    {
+      id: 's6',
       name: 'Logout',
+      title: 'Log Out'
     }
   ]
 
@@ -39,7 +44,7 @@ const SettingsList: React.FC = () => {
 
   return (
     <ScrollView style={styles.settingsList}>
-        {settingsOptions.map(({name, id}) => (
+        {settingsOptions.map(({name, id, title}) => (
           <TouchableOpacity onPress={
             () => {
               if (name === 'Logout') {
@@ -51,7 +56,7 @@ const SettingsList: React.FC = () => {
             
             } key={id}>
             <View style={styles.settingsElement}>
-              <Text style={styles.settingsText}>{name}</Text>
+              <Text style={styles.settingsText}>{title}</Text>
             </View>
           </TouchableOpacity>
         ))}

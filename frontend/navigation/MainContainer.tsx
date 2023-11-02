@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native'
 import React from 'react'
-import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
@@ -8,11 +7,13 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import HomeScreen from './screens/HomeScreen'
 import StoriesScreen from './screens/StoriesScreen'
 import SettingsScreen from './screens/SettingsScreen'
+import NotesScreen from './screens/NotesScreen'
 
 // screen names
 const homeName = 'Home'
 const storiesName = 'Stories'
 const settingsName = 'Settings'
+const notesName = 'Notes'
 
 const Tab = createBottomTabNavigator()
 
@@ -34,7 +35,9 @@ const MainContainer: React.FC = () => {
                     else if (rn === settingsName) {
                         iconName = focused ? 'settings' : 'settings-outline'
                     }
-                    
+                    else if (rn === notesName) {
+                        iconName = focused ? 'document-text' : 'document-text-outline'
+                    }
                     return <Ionicons name={iconName!} size={size} color={color}/>
                 },
                 tabBarActiveTintColor: 'tomato',
@@ -54,6 +57,7 @@ const MainContainer: React.FC = () => {
             
             <Tab.Screen name={homeName} component={HomeScreen}/>
             <Tab.Screen name={storiesName} component={StoriesScreen}/>
+            <Tab.Screen name={notesName} component={NotesScreen}/>
             <Tab.Screen name={settingsName} component={SettingsScreen}/>
         </Tab.Navigator>
   )

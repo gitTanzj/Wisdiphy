@@ -32,6 +32,7 @@ const StoriesScreen:React.FC = () => {
   }
 
   useEffect(() => {
+    console.log(LOCAL_IP)
     const fetchStories = () => {
       setLoading(true)
       axios.get(`http://${LOCAL_IP}:8000/stories`)
@@ -72,7 +73,6 @@ const StoriesScreen:React.FC = () => {
           renderItem={({item}) => <TouchableOpacity onPress={() => navigation.navigate('StoryScreen', {title: item.title, storyBody: item.storyBody})}>
             <View style={styles.story}>
               <Text style={styles.storyTitle}>{item.title}</Text>
-              {associatedNote(item.title) !== '' && <Text style={styles.storyNote}>{associatedNote(item.title)}</Text>}
             </View>
           </TouchableOpacity>}
           keyExtractor={item => item._id}

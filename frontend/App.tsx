@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import TitleScreen from './navigation/screens/TitleScreen';
 import MainContainer from './navigation/MainContainer';
 import StoryScreen from './navigation/screens/StoryScreen';
+import NoteScreen from './navigation/screens/NoteScreen';
 
 //context
 import { NotesContextProvider } from './context/NotesContext';
@@ -17,9 +18,14 @@ export type RootStackParams = {
   Stories: undefined
   Home: undefined
   Settings: undefined
+  Notes: undefined
   StoryScreen: {
     title: string
     storyBody: string
+  }
+  NoteScreen: {
+    associatedStory: string
+    noteBody: string
   }
 }
 
@@ -44,6 +50,11 @@ export default function App() {
           <Stack.Screen
           name="StoryScreen"
           component={StoryScreen}
+          options={{headerTitle:''}}
+          />
+          <Stack.Screen
+          name="NoteScreen"
+          component={NoteScreen}
           options={{headerTitle:''}}
           />
         </Stack.Navigator>

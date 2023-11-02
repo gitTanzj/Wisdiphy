@@ -23,6 +23,8 @@ export const addEntry = async (name:string, entry: {noteBody: string, associated
     
 }
 
+
+// not used
 export const deleteEntry = async (name:string, id:string) => {
     const database = client.db('Wisdiphy')
     const notesCollection = database.collection(name);

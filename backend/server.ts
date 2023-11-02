@@ -2,6 +2,18 @@ import express, { Request, Response, NextFunction } from 'express';
 import { getCollection, addEntry } from './handleMongo'
 const app = express()
 const PORT = 8000
+import os, { NetworkInterfaceInfo } from 'os';
+
+const getLocalIP = () => {
+        const networkInterfaces: NodeJS.Dict<NetworkInterfaceInfo[]> = os.networkInterfaces();
+        for (const name of Object.keys(networkInterfaces)) {
+            // Skip over non-IPv4 and internal (i.e. 127.0.0.1) addresses
+            for (const net of networkInterfaces[name]?.filter(net => net.family === 'IPv4') ?? []) {
+                return net.address;
+            }
+        }
+        return 'localhost';
+};
 
 // USE REQUESTS
 app.use(express.json())
@@ -42,5 +54,5 @@ app.post('/notes', async (req:Request, res:Response) => {
 })
 
 app.listen(PORT, () => {
-    console.log(`App listening on port ${PORT}`)
+    console.log(`App listening on port ${PORT} on ${getLocalIP()}`)
 })
