@@ -22,7 +22,6 @@ const NotesScreen:React.FC = () => {
                 </View>
             </TouchableOpacity>
         )}
-        keyExtractor={(item) => item.associatedStory}
         numColumns={1}
       />
     </View>

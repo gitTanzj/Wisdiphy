@@ -9,7 +9,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "@react-native-community/netinfo": "^9.4.1",
+    "@react-native-community/netinfo": "9.3.10",
     "@react-navigation/bottom-tabs": "^6.5.9",
     "@react-navigation/native": "^6.1.8",
     "@react-navigation/native-stack": "^6.9.14",
@@ -20,7 +20,7 @@
     "expo-status-bar": "~1.6.0",
     "os": "^0.1.2",
     "react": "18.2.0",
-    "react-native": "0.72.4",
+    "react-native": "0.72.5",
     "react-native-config": "^1.5.1",
     "react-native-network-info": "^5.2.1",
     "react-native-vector-icons": "^10.0.0"

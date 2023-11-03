@@ -1,5 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express';
-import { getCollection, addEntry } from './handleMongo'
+import { getCollection, addEntry, deleteEntry } from './handleMongo'
 const app = express()
 const PORT = 8000
 import os, { NetworkInterfaceInfo } from 'os';
@@ -50,7 +50,11 @@ app.post('/notes', async (req:Request, res:Response) => {
     }
 
     const entry = {noteBody: req.body.noteBody, associatedStory: req.body.associatedStory}
-    addEntry('Notes', entry)
+    await addEntry('Notes', entry)
+})
+
+app.delete('/notes/:id', async (req:Request, res:Response) => {
+    await deleteEntry('Notes', req.params.id)
 })
 
 app.listen(PORT, () => {

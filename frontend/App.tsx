@@ -55,7 +55,6 @@ export default function App() {
           <Stack.Screen
           name="NoteScreen"
           component={NoteScreen}
-          options={{headerTitle:''}}
           />
         </Stack.Navigator>
       </NavigationContainer>
