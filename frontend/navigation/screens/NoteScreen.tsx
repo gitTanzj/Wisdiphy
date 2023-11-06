@@ -2,37 +2,40 @@ import { StyleSheet, Text, View, TextInput, NativeSyntheticEvent, TextInputChang
 import React from 'react'
 import useNotesContext from '../../hooks/useNotesContext'
 import { useRoute } from '@react-navigation/native'
-import { LOCAL_IP } from '@env'
+import { LOCAL_IP } from '@env';
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import { useNavigation } from '@react-navigation/native';
+import { RootStackParams } from '../../App';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 type NoteScreenRouteParams = {
     associatedStory: string;
+    noteTitle: string;
     noteBody: string;
-}
-
-interface NotesElement {
-  associatedStory: string
-  noteBody: string
+    _id: string;
 }
 
 
 const NoteScreen:React.FC = () => {
+  const navigation = useNavigation<StackNavigationProp<RootStackParams, 'NoteScreen'>>()
 
-
-  const { notes, dispatch } = useNotesContext()
+  const { dispatch } = useNotesContext()
 
   
   // gets params from navigation
   const route = useRoute()
   const params = route?.params as NoteScreenRouteParams
-  const { associatedStory, noteBody } = params;
+  const { associatedStory, noteBody, noteTitle, _id } = params;
 
-  
-  const [value, onChangeNoteText] = React.useState(noteBody ? noteBody : '');
+  const [editableNoteTitle, onChangeNoteTitle] = React.useState(noteTitle ? noteTitle : '')
+  const [editableNoteText, onChangeNoteText] = React.useState(noteBody ? noteBody : '');
 
   const handleNoteSubmit = () => {
     const data = {
-      noteBody: value,
-      associatedStory: associatedStory
+      noteBody: editableNoteText,
+      noteTitle: editableNoteTitle,
+      associatedStory: associatedStory,
+      id: _id
     }
     const requestOptions = {
       method: 'POST',
@@ -44,12 +47,15 @@ const NoteScreen:React.FC = () => {
       .then(response => response.json())
       .then(dispatch({type: 'UPDATE_NOTE', payload: data}))
       .catch((err: Error) => console.error(err))
+    navigation.pop(1)
   }
 
   const handleNoteDelete = () => {
     const data = {
-      noteBody: value,
-      associatedStory: associatedStory
+      noteBody: editableNoteText,
+      noteTitle: editableNoteTitle,
+      associatedStory: associatedStory,
+      id: _id
     }
     const requestOptions = {
       method: 'DELETE',
@@ -57,7 +63,10 @@ const NoteScreen:React.FC = () => {
       body: JSON.stringify(data)
     };
     console.log(requestOptions)
-    dispatch({type: 'DELETE_NOTE', payload: data})
+    fetch(`http://${LOCAL_IP}:8000/notes/${_id}`, requestOptions)
+      .then(dispatch({type: 'DELETE_NOTE', payload: data}))
+      .catch((err: Error) => console.error(err))
+    navigation.pop(1)
   }
   
   if (!params || !noteBody) {
@@ -73,14 +82,28 @@ const NoteScreen:React.FC = () => {
     <View style={styles.noteScreen}>
         <TextInput
           editable
-          style={styles.noteInput}
-          value={value}
-          onChange={(e:NativeSyntheticEvent<TextInputChangeEventData>) => onChangeNoteText(e.nativeEvent.text)}
-          onSubmitEditing={() => {handleNoteSubmit()}}
+          style={styles.noteTitleInput}
+          placeholder='Note Title...'
+          value={editableNoteTitle}
+          onChange={(e:NativeSyntheticEvent<TextInputChangeEventData>) => onChangeNoteTitle(e.nativeEvent.text)}
         />
-        <TouchableOpacity style={styles.deleteButton} onPress={() => handleNoteDelete()}>
-            <Text style={styles.buttonText}>X</Text>
-        </TouchableOpacity>
+        <TextInput
+          editable
+          multiline
+          numberOfLines={10}
+          style={styles.noteTextInput}
+          value={editableNoteText}
+          placeholder='Note Text...'
+          onChange={(e:NativeSyntheticEvent<TextInputChangeEventData>) => onChangeNoteText(e.nativeEvent.text)}
+        />
+        <View style={styles.buttons}>
+          <TouchableOpacity style={styles.saveButton} onPress={() => handleNoteSubmit()}>
+            <Ionicons name='checkmark-outline' size={40}/>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.deleteButton} onPress={() => handleNoteDelete()}>
+              <Ionicons name='close-outline' size={40}/>
+          </TouchableOpacity>
+        </View>
     </View>
   )
 }
@@ -91,25 +114,47 @@ const styles = StyleSheet.create({
   noteScreen: {
     height: '100%'
   },
-  noteInput: {
+  noteTitleInput: {
     margin: 20,
+    marginBottom: 0,
+    fontSize: 20,
+    fontWeight: 'bold',
+    overflow: 'scroll',
+    height: 50,
+    borderWidth: 2,
+    borderRadius: 5,
+    padding: 10,
+  },
+  noteTextInput: {
+    margin: 20,
+    fontSize: 20,
+    borderWidth: 2,
+    borderRadius: 5,
+    padding: 10,
+  },
+  buttons: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
   },
   deleteButton: {
-    right: 0,
-    bottom: 0,
-    position: 'absolute',
     width: 70,
     height: 70,
     backgroundColor: 'red',
     borderRadius: 50,
     padding: 10,
-    margin: 20,
     alignItems: 'center',
-    justifyContent: 'center'  
+    justifyContent: 'center',  
+    margin: 10,
   },
-  buttonText: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center'
+  saveButton: {
+    width: 70,
+    height: 70,
+    backgroundColor: 'limegreen',
+    borderRadius: 50,
+    padding: 10,
+    alignItems: 'center',
+    justifyContent: 'center',  
+    margin: 10,
   }
 })

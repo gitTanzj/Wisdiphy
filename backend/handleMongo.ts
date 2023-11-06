@@ -29,6 +29,7 @@ export const addEntry = async (name:string, entry: {noteBody: string, associated
 export const deleteEntry = async (name:string, id:string) => {
     const database = client.db('Wisdiphy')
     const notesCollection = database.collection(name);
-    await notesCollection.deleteOne({"_id" : new ObjectId(id)})
+    const result = await notesCollection.deleteOne({"_id" : new ObjectId(id)})
+    console.log(result.deletedCount)
 }
 

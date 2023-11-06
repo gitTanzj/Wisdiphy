@@ -53,9 +53,12 @@ app.post('/notes', async (req:Request, res:Response) => {
     await addEntry('Notes', entry)
 })
 
+// DELETE REQUEST FOR THE NOTES
 app.delete('/notes/:id', async (req:Request, res:Response) => {
+    console.log(req.params.id)
     await deleteEntry('Notes', req.params.id)
 })
+
 
 app.listen(PORT, () => {
     console.log(`App listening on port ${PORT} on ${getLocalIP()}`)

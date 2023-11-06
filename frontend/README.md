@@ -7,6 +7,6 @@ ADD TO SETTINGS:
 
 BF THE END OF THE MONTH:
 
-- [] Make separate note writing screen
+- [x] Make separate note writing screen
 - [] Create highlighting function
 - []

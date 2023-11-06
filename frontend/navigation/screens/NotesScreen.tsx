@@ -9,16 +9,15 @@ const NotesScreen:React.FC = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParams, 'Notes'>>()
 
   const { notes } = useNotesContext()
-
-
+  
   return (
     <View style={styles.notes}>
       <FlatList
         data={notes}
         renderItem={({item}) => (
-            <TouchableOpacity style={styles.note} onPress={() => navigation.navigate('NoteScreen', {associatedStory: item.associatedStory, noteBody: item.noteBody})}>
+            <TouchableOpacity style={styles.note} onPress={() => navigation.navigate('NoteScreen', {associatedStory: item.associatedStory, noteTitle: item.noteTitle,noteBody: item.noteBody, _id: item._id})}>
                 <View>
-                    <Text style={styles.noteText}>{item.associatedStory}</Text>
+                    <Text style={styles.noteText}>{item.noteTitle} | {item.associatedStory}</Text>
                 </View>
             </TouchableOpacity>
         )}

@@ -62,7 +62,9 @@ const StoryScreen:React.FC = () => {
             <TouchableOpacity
             onPress={() => navigation.navigate('NoteScreen', {
                 associatedStory: title,
-                noteBody: noteData.noteBody
+                noteTitle: noteData.noteTitle,
+                noteBody: noteData.noteBody,
+                _id: noteData._id
               })}>
               <Text style={styles.buttonText}>Leave a note</Text>
             </TouchableOpacity>
