@@ -13,23 +13,30 @@ export const getCollection = async (name: string) => {
 }
 
 // ADD ONE NOTE TO THE NOTES COLLECTION
-export const addEntry = async (name:string, entry: {noteBody: string, associatedStory: string}) => {
+export const addEntry = async (name:string, entry: {noteBody: string, noteTitle: string, associatedStory: string}) => {
     const database = client.db('Wisdiphy')
     const notesCollection = database.collection(name);
     const existingEntry = await notesCollection.findOne({associatedStory: entry.associatedStory})
     if (existingEntry) {
-        await notesCollection.updateOne({associatedStory: entry.associatedStory}, {$set: {noteBody: entry.noteBody}})
+        await notesCollection.updateOne({associatedStory: entry.associatedStory}, {$set: {noteBody: entry.noteBody, noteTitle: entry.noteTitle}})
     } else {
         await notesCollection.insertOne(entry)
     }
     
 }
 
-// DELETE ONE NOTE FROM THE NOTES COLLECTION
-export const deleteEntry = async (name:string, id:string) => {
+// UPDATE ONE NOTE FROM THE NOTES COLLECTION
+export const updateEntry = async (name:string, entry: {noteBody: string, noteTitle: string, associatedStory: string}) => {
     const database = client.db('Wisdiphy')
     const notesCollection = database.collection(name);
-    const result = await notesCollection.deleteOne({"_id" : new ObjectId(id)})
+    await notesCollection.updateOne({associatedStory: entry.associatedStory}, {$set: {noteBody: entry.noteBody, noteTitle: entry.noteTitle}})
+}
+
+// DELETE ONE NOTE FROM THE NOTES COLLECTION
+export const deleteEntry = async (name:string, associatedStory:string) => {
+    const database = client.db('Wisdiphy')
+    const notesCollection = database.collection(name);
+    const result = await notesCollection.deleteOne({"associatedStory" : associatedStory})
     console.log(result.deletedCount)
 }
 

@@ -1,5 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express';
-import { getCollection, addEntry, deleteEntry } from './handleMongo'
+import { getCollection, addEntry, updateEntry, deleteEntry } from './handleMongo'
 const app = express()
 const PORT = 8000
 import os, { NetworkInterfaceInfo } from 'os';
@@ -15,12 +15,17 @@ const getLocalIP = () => {
         return 'localhost';
 };
 
+
+
 // USE REQUESTS
 app.use(express.json())
 app.use((req:Request, res:Response, next:NextFunction) => {
     console.log(req.method, req.url)
     next()
 })
+
+
+
 
 // GET REQUEST FOR THE STORIES
 app.get('/stories', async (req:Request, res:Response) => {
@@ -42,22 +47,42 @@ app.get('/notes', async (req:Request, res:Response) => {
     }
 })
 
-// POST REQUEST FOR THE NOTES
+
+
+
+// UPDATE REQUEST FOR ONE NOTE
+app.post('/notes/:associatedStory', async (req:Request, res:Response) => {
+    if (!req.body.noteBody || !req.body.associatedStory) {
+        res.status(400).json({ error: 'noteBody and associatedStory is required.' });
+        return;
+    }
+
+    const entry = {noteBody: req.body.noteBody, noteTitle: req.body.noteTitle, associatedStory: req.body.associatedStory, id: req.body.id}
+    await updateEntry('Notes', entry)
+})
+
+// POST REQUEST FOR ONE NOTE
 app.post('/notes', async (req:Request, res:Response) => {
     if (!req.body.noteBody || !req.body.associatedStory) {
         res.status(400).json({ error: 'noteBody and associatedStory is required.' });
         return;
     }
 
-    const entry = {noteBody: req.body.noteBody, associatedStory: req.body.associatedStory}
+    const entry = {noteBody: req.body.noteBody, noteTitle: req.body.noteTitle, associatedStory: req.body.associatedStory}
     await addEntry('Notes', entry)
 })
 
-// DELETE REQUEST FOR THE NOTES
-app.delete('/notes/:id', async (req:Request, res:Response) => {
-    console.log(req.params.id)
-    await deleteEntry('Notes', req.params.id)
+
+
+
+// DELETE REQUEST FOR ONE NOTE
+app.delete('/notes/:associatedStory', async (req:Request, res:Response) => {
+    await deleteEntry('Notes', req.params.associatedStory)
 })
+
+
+
+
 
 
 app.listen(PORT, () => {

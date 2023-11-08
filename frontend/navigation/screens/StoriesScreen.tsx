@@ -14,6 +14,7 @@ interface StoriesElement {
 }
 
 export interface NotesElement {
+  noteTitle: string
   noteBody: string
   associatedStory: string
 }
@@ -25,11 +26,6 @@ const StoriesScreen:React.FC = () => {
 
   const [stories, setStories] = useState<StoriesElement[]>([])
   const [loading, setLoading] = useState<boolean>(true)
-
-  const associatedNote = (associatedStory: string) => {
-    const ans = notes.find((note:NotesElement) => note.associatedStory === associatedStory)
-    return ans ? ans.noteBody : ''
-  }
 
   useEffect(() => {
     console.log(LOCAL_IP)

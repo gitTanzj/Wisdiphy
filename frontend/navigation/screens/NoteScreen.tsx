@@ -12,7 +12,6 @@ type NoteScreenRouteParams = {
     associatedStory: string;
     noteTitle: string;
     noteBody: string;
-    _id: string;
 }
 
 
@@ -25,17 +24,16 @@ const NoteScreen:React.FC = () => {
   // gets params from navigation
   const route = useRoute()
   const params = route?.params as NoteScreenRouteParams
-  const { associatedStory, noteBody, noteTitle, _id } = params;
+  const { associatedStory, noteBody, noteTitle } = params;
 
   const [editableNoteTitle, onChangeNoteTitle] = React.useState(noteTitle ? noteTitle : '')
   const [editableNoteText, onChangeNoteText] = React.useState(noteBody ? noteBody : '');
 
   const handleNoteSubmit = () => {
     const data = {
-      noteBody: editableNoteText,
       noteTitle: editableNoteTitle,
-      associatedStory: associatedStory,
-      id: _id
+      noteBody: editableNoteText,
+      associatedStory: associatedStory
     }
     const requestOptions = {
       method: 'POST',
@@ -51,25 +49,18 @@ const NoteScreen:React.FC = () => {
   }
 
   const handleNoteDelete = () => {
-    const data = {
-      noteBody: editableNoteText,
-      noteTitle: editableNoteTitle,
-      associatedStory: associatedStory,
-      id: _id
-    }
     const requestOptions = {
       method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
+      headers: { 'Content-Type': 'application/json' }
     };
     console.log(requestOptions)
-    fetch(`http://${LOCAL_IP}:8000/notes/${_id}`, requestOptions)
-      .then(dispatch({type: 'DELETE_NOTE', payload: data}))
+    fetch(`http://${LOCAL_IP}:8000/notes/${associatedStory}`, requestOptions)
+      .then(dispatch({type: 'DELETE_NOTE', payload: associatedStory}))
       .catch((err: Error) => console.error(err))
     navigation.pop(1)
   }
   
-  if (!params || !noteBody) {
+  if (!params) {
     return (
       <View>
         <Text>No story data available.</Text>

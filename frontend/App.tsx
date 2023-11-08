@@ -27,7 +27,6 @@ export type RootStackParams = {
     associatedStory: string
     noteTitle: string
     noteBody: string
-    _id: string
   }
 }
 

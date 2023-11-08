@@ -15,7 +15,7 @@ const NotesScreen:React.FC = () => {
       <FlatList
         data={notes}
         renderItem={({item}) => (
-            <TouchableOpacity style={styles.note} onPress={() => navigation.navigate('NoteScreen', {associatedStory: item.associatedStory, noteTitle: item.noteTitle,noteBody: item.noteBody, _id: item._id})}>
+            <TouchableOpacity style={styles.note} onPress={() => navigation.navigate('NoteScreen', {noteTitle: item.noteTitle, noteBody: item.noteBody, associatedStory: item.associatedStory})}>
                 <View>
                     <Text style={styles.noteText}>{item.noteTitle} | {item.associatedStory}</Text>
                 </View>
