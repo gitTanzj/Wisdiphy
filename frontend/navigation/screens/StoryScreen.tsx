@@ -6,7 +6,6 @@ import { RootStackParams } from '../../App';
 import { useNavigation } from '@react-navigation/native';
 import useNotesContext from '../../hooks/useNotesContext';
 import { LOCAL_IP } from '@env';
-import ObjectID from 'bson-objectid';
 
 type StoryScreenRouteParams = {
   title: string;
@@ -25,8 +24,7 @@ const StoryScreen:React.FC = () => {
   // checks if the user has scrolled to the bottom of the screen
   const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }:any) => {
     const paddingToBottom = 40;
-    return layoutMeasurement.height + contentOffset.y >=
-      contentSize.height - paddingToBottom;
+    return layoutMeasurement.height + contentOffset.y >= contentSize.height - paddingToBottom;
   };
 
   const [bottom, setBottom] = useState<boolean>(false)

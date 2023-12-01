@@ -6,11 +6,13 @@ import TitleScreen from './navigation/screens/TitleScreen';
 import MainContainer from './navigation/MainContainer';
 import StoryScreen from './navigation/screens/StoryScreen';
 import NoteScreen from './navigation/screens/NoteScreen';
+import LoginScreen from './navigation/screens/LoginScreen';
 
 //context
 import { NotesContextProvider } from './context/NotesContext';
 
 const Stack = createStackNavigator();
+const isLoggedIn = false;
 
 export type RootStackParams = {
   TitleScreen: undefined
@@ -33,7 +35,9 @@ export type RootStackParams = {
 export default function App() {
 
   return (
-    <NotesContextProvider>
+    <>
+    {isLoggedIn ? <LoginScreen /> :
+      <NotesContextProvider>
       <NavigationContainer independent={true}>
         <Stack.Navigator
         initialRouteName="TitleScreen"
@@ -60,5 +64,7 @@ export default function App() {
         </Stack.Navigator>
       </NavigationContainer>
     </NotesContextProvider>
+    }
+    </>
   );
 }
